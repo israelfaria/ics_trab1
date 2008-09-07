@@ -15,7 +15,6 @@
 		int16_t block_align;
 		int16_t bits_per_sample;
 		int32_t subchunk2ID;
-		int32_t subchunk2size
-			
+		int32_t subchunk2size	
 	}
 #endif

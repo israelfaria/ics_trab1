@@ -1,8 +1,25 @@
+/*! @addtogroup oscil*/
+/** @{ */
+/** 
+ * Arquivo que contém as definições das structs e os protótipos das 
+ * funções do oscilador
+ *
+ * 
+ * @brief Oscilador digital com table lookup - Header.
+ * @file oscil.h
+ * @author Bruno Figueira Lourenço
+ * @author Israel Faria
+ */
+
+
 #ifndef __OSCIL_H
 #define __OSCIL_H
 	#include <stdint.h>
 
 	typedef struct oscil_t oscil;
+	/**
+	 * Um oscilador digital feito com a técnica de table lookup
+	 */
 	struct oscil_t{
 		uint32_t table_length;
 		uint32_t sample_rate;
@@ -16,3 +33,5 @@
 	extern int16_t * generate_sample(oscil * oscillator, uint32_t frequency,
 					uint32_t seconds);
 #endif
+
+/** @} */
