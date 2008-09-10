@@ -9,6 +9,8 @@
  * @file oscil.c
  * @author Bruno Figueira Lourenço
  * @author Israel Faria
+ * 
+ * @todo Implementar a interpolação cúbica.
  */
 
 #include <stdio.h>
@@ -19,7 +21,9 @@
 #include "oscil.h"
 #include "utils.h"
 
+static int16_t linear_interpolation(oscil * oscillator,double phase);
 static const double pi = 3.14159265358979323846;
+
 /**Inicializa um oscilador
  * 
  * @param table_length Tamanho da tabela utilizada para table lookup
@@ -47,12 +51,36 @@ oscil * start_oscil(uint32_t table_length, uint32_t sample_rate,
 
 	return new_oscil;
 }
+/** Efetua uma interpolação linear com a fase atual do oscilador
+ * 
+ * @param oscillator 
+ * @param phase
+ * @return Uma amostra que corresponde à interpolação entre dois pontos 
+ * vizinhos da tabela de lookup do oscilador.
+ */
+static int16_t linear_interpolation(oscil * oscillator,double phase){
+	int32_t x1,x2;
+	double y1,y2,y;
+	
+	x1 = (int32_t) phase;
+	x2 = (int32_t) phase + 1;
+	y1 = oscillator->wavetable[x1];
+	y2 = oscillator->wavetable[x2];
+	
+	y = y1 + (phase - x1)*(y2-y1);
+	
+	return y*oscillator->amplitude;
+}
+
+
 /** Gera as amostras de acordo com as caracterísicas especificadas 
  * pelo oscilador e pelos parâmetros
  * 
  * @param oscillator Oscilador que gerará as amostras
  * @param frequency A frequência desejada
  * @param seconds A duração do som desejado
+ * @param inter_type O tipo de interpolação desejada. Pode ser NONE,
+ * LINEAR ou CUBIC
  * @return As amostras com as características especificadas
  * 
  * Utiliza-se a técnica de table lookup e espera-se que o oscilador 
@@ -60,13 +88,12 @@ oscil * start_oscil(uint32_t table_length, uint32_t sample_rate,
  * start_oscil .
  * 
  */
-int16_t * generate_sample(oscil * oscillator, uint32_t frequency, uint32_t seconds){
+int16_t * generate_sample(oscil * oscillator, uint32_t frequency, uint32_t seconds, interpolation_t inter_type){
 	int16_t * samples = NULL;
 	int64_t i;
 	uint32_t num_of_samples;
 	double increment;
 	double phase = 0.0, previous_phase = 0.0;
-	int32_t phase_index;
 
 	num_of_samples = oscillator->sample_rate*seconds;
 	samples = xcalloc(num_of_samples,sizeof(int16_t));
@@ -75,17 +102,25 @@ int16_t * generate_sample(oscil * oscillator, uint32_t frequency, uint32_t secon
 	for (i = 0; i < num_of_samples; i++){
 		phase = previous_phase + increment;
 		
-		if (phase < oscillator->table_length - 1.0){
-			phase_index =(int32_t) phase;			
+		if (phase > oscillator->table_length - 1.0){
+			phase = oscillator->table_length - phase;	
 		}
-		else{
-			phase_index = (int32_t) oscillator->table_length - phase;
-			phase = oscillator->table_length - phase;
+		
+		switch(inter_type){
+			case NONE:
+				samples[i] = oscillator->amplitude * oscillator->wavetable[(int32_t) phase];
+				break;
+			case LINEAR:	
+				samples[i] = linear_interpolation(oscillator,phase);
+				break;
+			case CUBIC:
+				break;
+			default:
+				printf("Erro! Tipo de interpolação inválida!\n");
+				exit(1);
 		}
-	
-		samples[i] = oscillator->amplitude * oscillator->wavetable[(int) phase_index];
+		
 		previous_phase = phase;
-		printf("%d\t%d\n",samples[i],phase_index);
 	}
 
 	return samples;

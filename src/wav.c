@@ -53,7 +53,6 @@ void write_wave(char * file_name,
 	 * Como numChanneles = 1 e bitsPerSample = 16, então
 	 * byte_rate = sample_rate*2
 	 */
-
 	file_header.byte_rate = sample_rate*2;
 	file_header.block_align = 2;
 	file_header.subchunk2ID = 0x61746164;/*"data" em ASCII*/

@@ -27,11 +27,25 @@
 		int16_t amplitude;
 		double * wavetable;
 	};
+
+	/**
+	 * Enum que contém os tipos de interpolação disponíveis. Por enquanto, 
+	 * a interpolação cúbica ainda não está implementada.
+	 */
+	enum interpolation_t{
+		NONE = 0,
+		LINEAR,
+		CUBIC
+	};
+	
+	typedef enum interpolation_t interpolation_t;
 	
 	extern oscil * start_oscil(uint32_t table_length, uint32_t sample_rate,
 					int16_t amplitude);
-	extern int16_t * generate_sample(oscil * oscillator, uint32_t frequency,
-					uint32_t seconds);
+	extern int16_t * generate_sample(oscil * oscillator,
+									 uint32_t frequency,
+									 uint32_t seconds,
+									 interpolation_t inter_type);
 #endif
 
 /** @} */

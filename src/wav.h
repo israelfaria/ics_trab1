@@ -1,6 +1,15 @@
 /*! @addtogroup wave */
 /** @{ */
 
+/** 
+ * Módulo para escrita de arquivo wav - Interface
+ *
+ * 
+ * @brief Cabeçalho para as funções de escrita de arquivo wav.
+ * @file wav.h
+ * @author Bruno Figueira Lourenço
+ * @author Israel Faria
+ */
 
 #ifndef __WAV_H
 #define __WAV_H
