@@ -1,6 +1,12 @@
+/*! @addtogroup wave */
+/** @{ */
+
+
 #ifndef __WAV_H
 #define __WAV_H
 	#include <stdint.h>
+	
+	typedef struct wav_header_t wav_header;
 	
 	struct wav_header_t{
 		int32_t chunkID;
@@ -15,6 +21,12 @@
 		int16_t block_align;
 		int16_t bits_per_sample;
 		int32_t subchunk2ID;
-		int32_t subchunk2size	
-	}
+		int32_t subchunk2size;
+	};
+	
+	extern	void write_wave(char * file_name,
+				int32_t sample_rate,
+				int16_t * sample,
+				int16_t sample_duration);
 #endif
+/** @} */

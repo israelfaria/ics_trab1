@@ -65,16 +65,27 @@ int16_t * generate_sample(oscil * oscillator, uint32_t frequency, uint32_t secon
 	int64_t i;
 	uint32_t num_of_samples;
 	double increment;
-	double phase_index = 0.0, previous_phase = 0.0;
+	double phase = 0.0, previous_phase = 0.0;
+	int32_t phase_index;
 
 	num_of_samples = oscillator->sample_rate*seconds;
 	samples = xcalloc(num_of_samples,sizeof(int16_t));
 	increment = (double) oscillator->table_length*frequency/oscillator->sample_rate;
 
 	for (i = 0; i < num_of_samples; i++){
-		phase_index = oscillator->table_length % ((int) ( previous_phase + increment));
+		phase = previous_phase + increment;
+		
+		if (phase < oscillator->table_length - 1.0){
+			phase_index =(int32_t) phase;			
+		}
+		else{
+			phase_index = (int32_t) oscillator->table_length - phase;
+			phase = oscillator->table_length - phase;
+		}
+	
 		samples[i] = oscillator->amplitude * oscillator->wavetable[(int) phase_index];
-		previous_phase = phase_index;
+		previous_phase = phase;
+		printf("%d\t%d\n",samples[i],phase_index);
 	}
 
 	return samples;
