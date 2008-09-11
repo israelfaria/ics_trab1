@@ -39,14 +39,14 @@ oscil * start_oscil(uint32_t table_length, uint32_t sample_rate,
 
 	new_oscil = xcalloc(1,sizeof(oscil));
 
-	new_oscil->wavetable = xcalloc(table_length, sizeof(double));
+	new_oscil->wavetable = xcalloc(table_length + 2, sizeof(double));
 	new_oscil->table_length = table_length;
 	new_oscil->sample_rate = sample_rate;
 	new_oscil->frequency = 440;
 	new_oscil->amplitude = amplitude;
 	/*Gera as amostras*/
-	for (i = 0; i < table_length; i++){
-		new_oscil->wavetable[i] = sin( (2.0*pi*i)/(table_length - 1) );
+	for (i = 0; i < table_length + 2; i++){
+		new_oscil->wavetable[i] = sin( (2.0*pi*i)/(table_length + 1) );
 	}
 
 	return new_oscil;
@@ -64,12 +64,29 @@ static int16_t linear_interpolation(oscil * oscillator,double phase){
 	
 	x1 = (int32_t) phase;
 	x2 = (int32_t) phase + 1;
+
 	y1 = oscillator->wavetable[x1];
 	y2 = oscillator->wavetable[x2];
 	
 	y = y1 + (phase - x1)*(y2-y1);
 	
 	return y*oscillator->amplitude;
+}
+
+static int16_t cubic_interpolation(oscil * oscillator, double phase){
+	int32_t x1,x2,x3;
+	double y1,y2,y3,y;
+	/*double a,b,c,d;*/
+	
+	x1 = (int32_t) phase;
+	x2 = (int32_t) phase + 1;
+	x3 = (int32_t) phase + 2;
+	
+	y1 = oscillator->wavetable[x1];
+	y2 = oscillator->wavetable[x2];
+	y3 = oscillator->wavetable[x3];
+	
+	return 0;
 }
 
 
@@ -94,6 +111,7 @@ int16_t * generate_sample(oscil * oscillator, uint32_t frequency, uint32_t secon
 	uint32_t num_of_samples;
 	double increment;
 	double phase = 0.0, previous_phase = 0.0;
+	double aux;
 
 	num_of_samples = oscillator->sample_rate*seconds;
 	samples = xcalloc(num_of_samples,sizeof(int16_t));
@@ -101,10 +119,19 @@ int16_t * generate_sample(oscil * oscillator, uint32_t frequency, uint32_t secon
 
 	for (i = 0; i < num_of_samples; i++){
 		phase = previous_phase + increment;
+		/*Pega a parte fracionária da fase*/
+		aux = phase - (int32_t) phase;
 		
-		if (phase > oscillator->table_length - 1.0){
-			phase = oscillator->table_length - phase;	
-		}
+		phase = (int32_t)phase % oscillator->table_length;
+		/*
+		 * Soma a parte fracionária à fase. Isso só é útil no 
+		 * caso de utilizar interpolação
+		 */
+		phase += aux;
+		
+		/*if (phase > oscillator->table_length - 1.0){
+			phase = phase - oscillator->table_length;	
+		}*/
 		
 		switch(inter_type){
 			case NONE:
