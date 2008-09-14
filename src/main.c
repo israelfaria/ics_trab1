@@ -26,10 +26,12 @@ int main(int argc, char *argv[]){
 	sec = atoi(argv[2]);
 	inter_type = atoi(argv[3]);
 	
-	osc = start_oscil(TABLE_LENGTH,SAMPLE_RATE,AMPLITUDE);
-	samples = generate_sample(osc,freq,sec,inter_type);
-
+	osc = start_oscil(TABLE_LENGTH,SAMPLE_RATE,AMPLITUDE,inter_type);
+	samples = generate_sample(osc,freq,sec);
 	write_wave(argv[4],SAMPLE_RATE,samples,sec);
+
+	free_oscillator(&osc);
+	free(samples);
 
 	return 0;	
 }

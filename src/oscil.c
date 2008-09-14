@@ -10,7 +10,6 @@
  * @author Bruno Figueira Lourenço
  * @author Israel Faria
  * 
- * @todo Implementar a interpolação cúbica.
  */
 
 #include <stdio.h>
@@ -21,7 +20,14 @@
 #include "oscil.h"
 #include "utils.h"
 
+/*Membros públicos deste módulo*/
+oscil * start_oscil(uint32_t table_length, uint32_t sample_rate,
+					int16_t amplitude, interpolation_t inter_type);
+int16_t * generate_sample(oscil * oscillator, uint32_t frequency, uint32_t seconds);
+
+/* Membros privados deste módulo*/
 static int16_t linear_interpolation(oscil * oscillator,double phase);
+static int16_t cubic_interpolation(oscil * oscillator, double phase);
 static const double pi = 3.14159265358979323846;
 
 /**Inicializa um oscilador
@@ -33,21 +39,49 @@ static const double pi = 3.14159265358979323846;
  * 
  */
 oscil * start_oscil(uint32_t table_length, uint32_t sample_rate,
-					int16_t amplitude){
+					int16_t amplitude, interpolation_t inter_type){
 	oscil * new_oscil = NULL;
 	int32_t i;
 
 	new_oscil = xcalloc(1,sizeof(oscil));
 
-	new_oscil->wavetable = xcalloc(table_length + 2, sizeof(double));
 	new_oscil->table_length = table_length;
 	new_oscil->sample_rate = sample_rate;
 	new_oscil->frequency = 440;
 	new_oscil->amplitude = amplitude;
+	new_oscil->inter_type = inter_type;
+	
 	/*Gera as amostras*/
-	for (i = 0; i < table_length + 2; i++){
-		new_oscil->wavetable[i] = sin( (2.0*pi*i)/(table_length + 1) );
+	switch(inter_type){
+			case NONE:
+				new_oscil->wavetable = xcalloc(table_length, sizeof(double));
+				for (i = 0; i < table_length; i++){
+					new_oscil->wavetable[i] = sin( (2.0*pi*i)/(table_length) );
+				}
+				break;
+			/* A interpolação linear precisa de 1 ponto no final da tabela*/
+			case LINEAR:
+				new_oscil->wavetable = xcalloc(table_length + 1, sizeof(double));
+				for (i = 0; i < table_length + 1; i++){
+					new_oscil->wavetable[i] = sin( (2.0*pi*i)/(table_length) );
+				}	
+				break;
+			/*
+			 * A interpolação cúbica precisa de 2 pontos no final da tabela
+			 * Além disso, precisa de 1 ponto adicional no começo da tabela, 
+			 * mas isso será tratado no código de gerar as amostras.
+			 */
+			case CUBIC:
+				new_oscil->wavetable = xcalloc(table_length + 2, sizeof(double));
+				for (i = 0; i < table_length + 2; i++){
+					new_oscil->wavetable[i] = sin( (2.0*pi*i)/(table_length) );
+				}	
+				break;
+			default:
+				printf("Erro! Tipo de interpolação inválida!\n");
+				exit(1);
 	}
+	
 
 	return new_oscil;
 }
@@ -66,27 +100,50 @@ static int16_t linear_interpolation(oscil * oscillator,double phase){
 	x2 = (int32_t) phase + 1;
 
 	y1 = oscillator->wavetable[x1];
-	y2 = oscillator->wavetable[x2];
-	
+	y2 = oscillator->wavetable[x2];			
+
 	y = y1 + (phase - x1)*(y2-y1);
 	
 	return y*oscillator->amplitude;
 }
-
+/** Efetua a interpolação cúbica com a fase atual do oscilador
+ * 
+ * @param oscillator
+ * @param phase
+ * @return Uma amostra que corresponde à interpolação entre 4 pontos 
+ * na tabela de lookup do oscilador
+ * 
+ * Essa função espera que existam 2 pontos extras ao final da tabela.
+ * 
+ */
 static int16_t cubic_interpolation(oscil * oscillator, double phase){
-	int32_t x1,x2,x3;
-	double y1,y2,y3,y;
-	/*double a,b,c,d;*/
+	int32_t x0,x1,x2,x3;
+	double y,y0,y1,y2,y3;
+	double frac;
 	
-	x1 = (int32_t) phase;
-	x2 = (int32_t) phase + 1;
-	x3 = (int32_t) phase + 2;
+	x1= (int32_t) phase;
+	x0 = x1 - 1;
+	x2 = x1 + 1;
+	x3 = x1 + 2;
+	frac = phase - x1;
 	
 	y1 = oscillator->wavetable[x1];
 	y2 = oscillator->wavetable[x2];
 	y3 = oscillator->wavetable[x3];
 	
-	return 0;
+	if (x1 < 0 ){
+		y0 = oscillator->wavetable[oscillator->table_length - 1];	
+	}
+	else{
+		y0 = oscillator->wavetable[x1 - 1];	
+	}
+
+	/*Apenas divide a fórmula em duas partes para facilitar a leitura*/
+	y = -frac*(frac-1)*(frac-2)*y0/6.0 + (frac+1)*(frac-1)*(frac-2)*y1/2.0;
+	y += -(frac+1)*(frac)*(frac-2)*y2/2.0 + (frac+1)*(frac)*(frac-1)*y3/6.0;
+	
+	
+	return y*oscillator->amplitude;
 }
 
 
@@ -105,7 +162,7 @@ static int16_t cubic_interpolation(oscil * oscillator, double phase){
  * start_oscil .
  * 
  */
-int16_t * generate_sample(oscil * oscillator, uint32_t frequency, uint32_t seconds, interpolation_t inter_type){
+int16_t * generate_sample(oscil * oscillator, uint32_t frequency, uint32_t seconds){
 	int16_t * samples = NULL;
 	int64_t i;
 	uint32_t num_of_samples;
@@ -133,7 +190,7 @@ int16_t * generate_sample(oscil * oscillator, uint32_t frequency, uint32_t secon
 			phase = phase - oscillator->table_length;	
 		}*/
 		
-		switch(inter_type){
+		switch(oscillator->inter_type){
 			case NONE:
 				samples[i] = oscillator->amplitude * oscillator->wavetable[(int32_t) phase];
 				break;
@@ -141,6 +198,7 @@ int16_t * generate_sample(oscil * oscillator, uint32_t frequency, uint32_t secon
 				samples[i] = linear_interpolation(oscillator,phase);
 				break;
 			case CUBIC:
+				samples[i] = cubic_interpolation(oscillator,phase);
 				break;
 			default:
 				printf("Erro! Tipo de interpolação inválida!\n");
@@ -151,5 +209,16 @@ int16_t * generate_sample(oscil * oscillator, uint32_t frequency, uint32_t secon
 	}
 
 	return samples;
+}
+/** Desaloca a memória alocada por um oscilador
+ * 
+ * @param oscillator
+ * @return @c void
+ * 
+ */
+void free_oscillator(oscil ** oscillator){
+	free((*oscillator)->wavetable);
+	free(*oscillator);	
+	*oscillator = NULL;
 }
 /** @} */
