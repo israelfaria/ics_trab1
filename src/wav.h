@@ -17,6 +17,9 @@
 	
 	typedef struct wav_header_t wav_header;
 	
+	/**
+	 * Header do arquivo wav
+	 */
 	struct wav_header_t{
 		int32_t chunkID;
 		int32_t chunk_size;

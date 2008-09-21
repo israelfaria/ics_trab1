@@ -17,8 +17,8 @@
 	#include <stdint.h>
 
 	/**
-	 * Enum que contém os tipos de interpolação disponíveis. Por enquanto, 
-	 * a interpolação cúbica ainda não está implementada.
+	 * Enum que contém os tipos de interpolação disponíveis: Nenhuma, 
+	 * Linear e Cúbica
 	 */
 	enum interpolation_t{
 		NONE = 0,
@@ -29,8 +29,11 @@
 	typedef enum interpolation_t interpolation_t;
 	typedef struct oscil_t oscil;
 	
-	/**
-	 * Um oscilador digital feito com a técnica de table lookup
+	/*!@brief Oscilador digital com table lookup.
+	 * 
+	 * @see start_oscil
+	 * @see generate_sample
+	 * @see free_oscillator
 	 */
 	struct oscil_t{
 		uint32_t table_length;

@@ -2,8 +2,8 @@
  *@defgroup ut Utils
  *@{
  *	
- *@file utils.h.h
- *@brief Declaração de estruturas de arquivo e de funções auxiliares
+ *@file utils.h
+ *@brief Declaração de de funções auxiliares
  *@author Bruno Figueira "Jedi" Lourenço 
  *@date 30 de maio
  *@version 0.1 

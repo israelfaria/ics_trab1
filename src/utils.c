@@ -12,7 +12,7 @@
 /*!@brief Aloca memória para <i>nitens</i>, cada um de tamanho 
  * <i>size</i> com a função calloc.
  * 
- * @param nitens
+ * @param nitems
  * @param size
  * @return Ponteiro com o endereço do pedaço de memória alocada 
  * com calloc

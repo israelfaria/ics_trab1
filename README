@@ -1,0 +1,65 @@
+**************************************************
+*Introdução à Computação Sônica - 2/08			 *
+*Prof: Márcio Brandão							 *
+*												 *
+*Aluno: Bruno Figueira Lourenço					 *
+*	    Israel Faria						 	 *
+*					 							 *
+**************************************************
+
+*************************************************
+*				Dependências					*
+*************************************************
+Este programa foi feito para ser rodado no Linux, 
+pois utiliza-se o glibc para efetuar o parsing 
+dos argumentos da linha de comando. 
+
+*************************************************
+*				Listagem de Diretórios			*
+*************************************************
+doc -> Documentação gerada pelo doxygen. Entre na
+pasta html e abra o arquivo index.html em um 
+browser. Contém a documentação do programa assim 
+como instruções de como rodá-lo.
+
+src -> Fontes do programa
+
+*************************************************
+*				Compilação 						*
+*************************************************
+Para compilar o programa entre no diretório src e
+digite make. Um executável chamado "main" será 
+criado. Digite ./main  para receber informações 
+sobre os argumentos obrigatórios e opcionais 
+do programa
+
+*************************************************
+*				Execução do programa			*
+*************************************************
+As instruções de como se utiliza o programa podem 
+ser encontrados na página principal da documentação 
+gerada pelo doxygen. De todo jeito, segue abaixo 
+uma reprodução do conteúdo lá descrito:
+
+O programa recebe obrigatoriamente 3 argumentos na seguinte ordem: 
+freq amp dur.
+Além disso opcionalmente o programa pode receber os seguintes argumentos:
+
+    * -o FILE : Especifica que a saída deve ser colocada no arquivo FILE
+    * -i Código: Indica o tipo de interpolação correspondente ao código. 0 - Sem interpolação. 1 - Interpolação Linear. 2 - Interpolação Cúbica
+    * -s sr : Seta o sample rate para sr
+    * -t length: Seta o tamanho da tabela de lookup para length
+    * -?: Mostra a listagem de comandos
+
+Exemplos:
+
+./main 440 30000 10 -i 2 -o "A440.wav" : Gera uma amostra de 440 Hz, 
+com amplitude 30000 durando 10 segundos usando a interpolação cúbica 
+e coloca o resultado no arquivo A440.wav.
+
+./main 754 20000 5 -i 1 -s 88200 : Gera uma amostra de 754 Hz com 
+amplitude 20000 durante 5 segundos usando interpolação linear e 
+com sample rate 88200. Quando não é especificado o nome do 
+arquivo de saída o programa escreve um arquivo "teste.wav"
+como saída.  
+

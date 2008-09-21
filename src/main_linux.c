@@ -12,7 +12,7 @@
 #include "oscil.h"
 
 /*Versão do programa*/
-const char * argp_program_version = "Trabalho 2 de OA - Versão 0.1";
+const char * argp_program_version = "Trabalho 2 de ICS - Versão 0.1";
 /*A quem reclamar se o programa der defeito...*/
 const char * argp_program_bug_address = "<brunofigueiralourenco@gmail.com>";
 /*Pequena descrição do programa*/
@@ -180,3 +180,39 @@ int main(int argc, char *argv[]){
 
 	return 0;	
 }
+
+/*!@mainpage
+ * @section Int Introdução
+ * Esse programa implementa um oscilador digital. Há três opções de
+ * osciladores: sem interpolação, com interpolação linear e 
+ * interpolação cúbica. O usuário informa a frequência, amplitude e 
+ * a duração do som e o programa escreve um arquivo chamado "teste.wav" 
+ * contém o som com as características desejadsa
+ * 
+ * @section Com Compilação
+ * Para compilar o programa digite make na raiz do diretório src. Para 
+ * assegurar que a compilação seja bem-sucedida, use Linux.
+ * 
+ * @section exec Execução do programa
+ * O programa recebe obrigatoriamente 3 argumentos na seguinte ordem: 
+ * <i>freq</i> <i>amp</i> <i>dur</i>. Além disso opcionalmente o programa 
+ * pode receber os seguintes argumentos:
+ * 
+ * - -o FILE : Especifica que a saída deve ser colocada no arquivo FILE
+ * - -i Código: Indica o tipo de interpolação correspondente ao código. 
+ * 0 - Sem interpolação. 1 - Interpolação Linear. 2 - Interpolação Cúbica
+ * - -s sr : Seta o sample rate para sr
+ * - -t length: Seta o tamanho da tabela de lookup para length
+ * - -?: Mostra a listagem de comandos
+ * 
+ * Exemplos:
+ * 
+ * ./main 440 30000 10 -i 2 -o "A440.wav" : Gera uma amostra de 440 Hz, 
+ * com amplitude 30000 durando 10 segundos usando a interpolação cúbica e 
+ * coloca o resultado no arquivo A440.wav .
+ * 
+ * ./main 754 20000 5 -i 1 -s 88200 : Gera uma amostra de 754 Hz com amplitude
+ * 20000 durante 5 segundos usando interpolação linear e com sample rate 
+ * 88200. Quando não é especificado o nome do arquivo de saída o programa escreve 
+ * um arquivo "teste.wav" como saída.
+ */

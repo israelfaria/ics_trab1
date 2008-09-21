@@ -2,9 +2,6 @@
 /** @{ */
 
 /** 
- * Arquivo que implementa  um oscilador digital
- *
- * 
  * @brief Oscilador digital com table lookup.
  * @file oscil.c
  * @author Bruno Figueira Lourenço
@@ -30,11 +27,13 @@ static int16_t linear_interpolation(oscil * oscillator,double phase);
 static int16_t cubic_interpolation(oscil * oscillator, double phase);
 static const double pi = 3.14159265358979323846;
 
-/**Inicializa um oscilador
+/**Inicializa um oscilador com os parâmetros especificados 
+ * e retorna um ponteiro para ele.
  * 
  * @param table_length Tamanho da tabela utilizada para table lookup
  * @param sample_rate Taxa de amostragem
  * @param amplitude A amplitude
+ * @param inter_type O tipo de interpolação. @see interpolation_t
  * @return Um ponteiro para um novo oscilador
  * 
  */
@@ -47,6 +46,10 @@ oscil * start_oscil(uint32_t table_length, uint32_t sample_rate,
 
 	new_oscil->table_length = table_length;
 	new_oscil->sample_rate = sample_rate;
+	/*
+	 * Gera um valor default para a frequência. Não há nenhuma 
+	 * razão especial para ser esse valor.
+	 */
 	new_oscil->frequency = 440;
 	new_oscil->amplitude = amplitude;
 	new_oscil->inter_type = inter_type;
@@ -153,8 +156,6 @@ static int16_t cubic_interpolation(oscil * oscillator, double phase){
  * @param oscillator Oscilador que gerará as amostras
  * @param frequency A frequência desejada
  * @param seconds A duração do som desejado
- * @param inter_type O tipo de interpolação desejada. Pode ser NONE,
- * LINEAR ou CUBIC
  * @return As amostras com as características especificadas
  * 
  * Utiliza-se a técnica de table lookup e espera-se que o oscilador 
@@ -185,10 +186,6 @@ int16_t * generate_sample(oscil * oscillator, uint32_t frequency, uint32_t secon
 		 * caso de utilizar interpolação
 		 */
 		phase += aux;
-		
-		/*if (phase > oscillator->table_length - 1.0){
-			phase = phase - oscillator->table_length;	
-		}*/
 		
 		switch(oscillator->inter_type){
 			case NONE:
