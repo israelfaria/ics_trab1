@@ -1,0 +1,275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>Trabalho 1 de Introdução à Computação Sônica - Oscilador Digital: Oscilador</title>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css">
+<link href="../../tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Gerado por Doxygen 1.5.5 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="../../main.html"><span>Página&nbsp;Principal</span></a></li>
+      <li><a href="../../modules.html"><span>Módulos</span></a></li>
+      <li><a href="../../annotated.html"><span>Estruturas&nbsp;de&nbsp;Dados</span></a></li>
+      <li><a href="../../files.html"><span>Arquivos</span></a></li>
+    <li>
+      <form action="../../search.php" method="get">
+        <table cellspacing="0" cellpadding="0" border="0">
+          <tr>
+            <td><label>&nbsp;Procurar&nbsp;por&nbsp;</label></td>
+            <td><input type="text" name="query" value="" size="20" accesskey="s"/></td>
+          </tr>
+        </table>
+      </form>
+    </li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>Oscilador</h1>Oscilador Oscilador digital com table lookup.  
+<a href="#_details">Mais...</a><table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Arquivos</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">arquivo &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d9f/oscil_8c.html">oscil.c</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Oscilador digital com table lookup - Implementação. <br></td></tr>
+
+<p>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">arquivo &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d3e/oscil_8h.html">oscil.h</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Oscilador digital com table lookup - Header. <br></td></tr>
+
+<p>
+<tr><td colspan="2"><br><h2>Estruturas de Dados</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d15/structoscil__t.html">oscil_t</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Oscilador digital com table lookup.  <a href="../../d1/d15/structoscil__t.html#_details">Mais...</a><br></td></tr>
+<tr><td colspan="2"><br><h2>Definições de Tipos</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef struct <a class="el" href="../../d1/d15/structoscil__t.html">oscil_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d81/group__oscil.html#gaf3d5a8042abe7b87dc07cb297eb8066">oscil</a></td></tr>
+
+<tr><td colspan="2"><br><h2>Enumerações</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d81/group__oscil.html#gaa0d4d6ffe47c5359235a5f1779305e0">interpolation_t</a> { <a class="el" href="../../d4/d81/group__oscil.html#ggaa0d4d6ffe47c5359235a5f1779305e0c157bdf0b85a40d2619cbc8bc1ae5fe2">NONE</a> =  0, 
+<a class="el" href="../../d4/d81/group__oscil.html#ggaa0d4d6ffe47c5359235a5f1779305e0dc101ebf31c49c2d4b80b7c6f59f22cb">LINEAR</a>, 
+<a class="el" href="../../d4/d81/group__oscil.html#ggaa0d4d6ffe47c5359235a5f1779305e0b3387b440e4cd9efe5c4b75467d0e809">CUBIC</a>
+ }</td></tr>
+
+<tr><td colspan="2"><br><h2>Funções</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="../../d1/d15/structoscil__t.html">oscil</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d81/group__oscil.html#g6e5347dda289d2e53594720d0a65f63b">start_oscil</a> (uint32_t table_length, uint32_t sample_rate, int16_t amplitude, <a class="el" href="../../d4/d81/group__oscil.html#gaa0d4d6ffe47c5359235a5f1779305e0">interpolation_t</a> inter_type)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int16_t *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d81/group__oscil.html#gcdbc28ef22fba03cb5fe9b1bcc5f2c0a">generate_sample</a> (<a class="el" href="../../d1/d15/structoscil__t.html">oscil</a> *oscillator, uint32_t frequency, uint32_t seconds)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d81/group__oscil.html#gc44488bf645d15523f5ca17b262f7f94">free_oscillator</a> (<a class="el" href="../../d1/d15/structoscil__t.html">oscil</a> **oscillator)</td></tr>
+
+</table>
+<hr><a name="_details"></a><h2>Descrição Detalhada</h2>
+Oscilador Oscilador digital com table lookup. 
+<p>
+<hr><h2>Definições dos tipos</h2>
+<a class="anchor" name="gaf3d5a8042abe7b87dc07cb297eb8066"></a><!-- doxytag: member="oscil.h::oscil" ref="gaf3d5a8042abe7b87dc07cb297eb8066" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="../../d1/d15/structoscil__t.html">oscil_t</a> <a class="el" href="../../d1/d15/structoscil__t.html">oscil</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Definição na linha <a class="el" href="../../d9/d06/oscil_8h-source.html#l00030">30</a> do arquivo <a class="el" href="../../d9/d06/oscil_8h-source.html">oscil.h</a>.</p>
+
+</div>
+</div><p>
+<hr><h2>Enumerações</h2>
+<a class="anchor" name="gaa0d4d6ffe47c5359235a5f1779305e0"></a><!-- doxytag: member="oscil.h::interpolation_t" ref="gaa0d4d6ffe47c5359235a5f1779305e0" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum typedef enum <a class="el" href="../../d4/d81/group__oscil.html#gaa0d4d6ffe47c5359235a5f1779305e0">interpolation_t</a> <a class="el" href="../../d4/d81/group__oscil.html#gaa0d4d6ffe47c5359235a5f1779305e0">interpolation_t</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Enum que contém os tipos de interpolação disponíveis: Nenhuma, Linear e Cúbica <dl compact><dt><b>Valores enumerados: </b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" name="ggaa0d4d6ffe47c5359235a5f1779305e0c157bdf0b85a40d2619cbc8bc1ae5fe2"></a><!-- doxytag: member="NONE" ref="ggaa0d4d6ffe47c5359235a5f1779305e0c157bdf0b85a40d2619cbc8bc1ae5fe2" args="" -->NONE</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="ggaa0d4d6ffe47c5359235a5f1779305e0dc101ebf31c49c2d4b80b7c6f59f22cb"></a><!-- doxytag: member="LINEAR" ref="ggaa0d4d6ffe47c5359235a5f1779305e0dc101ebf31c49c2d4b80b7c6f59f22cb" args="" -->LINEAR</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" name="ggaa0d4d6ffe47c5359235a5f1779305e0b3387b440e4cd9efe5c4b75467d0e809"></a><!-- doxytag: member="CUBIC" ref="ggaa0d4d6ffe47c5359235a5f1779305e0b3387b440e4cd9efe5c4b75467d0e809" args="" -->CUBIC</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dl>
+
+<p>Definição na linha <a class="el" href="../../d9/d06/oscil_8h-source.html#l00023">23</a> do arquivo <a class="el" href="../../d9/d06/oscil_8h-source.html">oscil.h</a>.</p>
+
+</div>
+</div><p>
+<hr><h2>Funções</h2>
+<a class="anchor" name="gc44488bf645d15523f5ca17b262f7f94"></a><!-- doxytag: member="oscil.c::free_oscillator" ref="gc44488bf645d15523f5ca17b262f7f94" args="(oscil **oscillator)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void free_oscillator           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d1/d15/structoscil__t.html">oscil</a> **&nbsp;</td>
+          <td class="paramname"> <em>oscillator</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Desaloca a memória alocada por um oscilador<p>
+<dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>oscillator</em>&nbsp;</td><td></td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Retorna:</b></dt><dd><code>void</code> </dd></dl>
+
+<p>Definição na linha <a class="el" href="../../d3/dc7/oscil_8c-source.html#l00218">218</a> do arquivo <a class="el" href="../../d3/dc7/oscil_8c-source.html">oscil.c</a>.</p>
+
+<p>
+<div class="dynheader">
+Este é o diagrama de chamadas para esta função:</div>
+<div class="dynsection">
+<p><center><img src="../../d4/d81/group__oscil_gc44488bf645d15523f5ca17b262f7f94_icgraph.png" border="0" usemap="#d4/d81/group__oscil_gc44488bf645d15523f5ca17b262f7f94_icgraph_map" alt=""></center>
+<map name="d4/d81/group__oscil_gc44488bf645d15523f5ca17b262f7f94_icgraph_map">
+<area shape="rect" href="../../df/d2d/main__linux_8c.html#0ddf1224851353fc92bfbff6f499fa97" title="main" alt="" coords="159,6,207,30"></map>
+</div>
+
+</div>
+</div><p>
+<a class="anchor" name="gcdbc28ef22fba03cb5fe9b1bcc5f2c0a"></a><!-- doxytag: member="oscil.c::generate_sample" ref="gcdbc28ef22fba03cb5fe9b1bcc5f2c0a" args="(oscil *oscillator, uint32_t frequency, uint32_t seconds)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int16_t * generate_sample           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d1/d15/structoscil__t.html">oscil</a> *&nbsp;</td>
+          <td class="paramname"> <em>oscillator</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&nbsp;</td>
+          <td class="paramname"> <em>frequency</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&nbsp;</td>
+          <td class="paramname"> <em>seconds</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Gera as amostras de acordo com as caracterísicas especificadas pelo oscilador e pelos parâmetros<p>
+<dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>oscillator</em>&nbsp;</td><td>Oscilador que gerará as amostras </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>frequency</em>&nbsp;</td><td>A frequência desejada </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>seconds</em>&nbsp;</td><td>A duração do som desejado </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Retorna:</b></dt><dd>As amostras com as características especificadas</dd></dl>
+Utiliza-se a técnica de table lookup e espera-se que o oscilador passado à função tenha sido previamente inicializado com a função start_oscil . 
+<p>Definição na linha <a class="el" href="../../d3/dc7/oscil_8c-source.html#l00168">168</a> do arquivo <a class="el" href="../../d3/dc7/oscil_8c-source.html">oscil.c</a>.</p>
+
+<p>
+<div class="dynheader">
+Este é o diagrama de chamadas para esta função:</div>
+<div class="dynsection">
+<p><center><img src="../../d4/d81/group__oscil_gcdbc28ef22fba03cb5fe9b1bcc5f2c0a_icgraph.png" border="0" usemap="#d4/d81/group__oscil_gcdbc28ef22fba03cb5fe9b1bcc5f2c0a_icgraph_map" alt=""></center>
+<map name="d4/d81/group__oscil_gcdbc28ef22fba03cb5fe9b1bcc5f2c0a_icgraph_map">
+<area shape="rect" href="../../df/d2d/main__linux_8c.html#0ddf1224851353fc92bfbff6f499fa97" title="main" alt="" coords="175,6,223,30"></map>
+</div>
+
+</div>
+</div><p>
+<a class="anchor" name="g6e5347dda289d2e53594720d0a65f63b"></a><!-- doxytag: member="oscil.c::start_oscil" ref="g6e5347dda289d2e53594720d0a65f63b" args="(uint32_t table_length, uint32_t sample_rate, int16_t amplitude, interpolation_t inter_type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d1/d15/structoscil__t.html">oscil</a> * start_oscil           </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&nbsp;</td>
+          <td class="paramname"> <em>table_length</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&nbsp;</td>
+          <td class="paramname"> <em>sample_rate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int16_t&nbsp;</td>
+          <td class="paramname"> <em>amplitude</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d4/d81/group__oscil.html#gaa0d4d6ffe47c5359235a5f1779305e0">interpolation_t</a>&nbsp;</td>
+          <td class="paramname"> <em>inter_type</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Inicializa um oscilador com os parâmetros especificados e retorna um ponteiro para ele.<p>
+<dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>table_length</em>&nbsp;</td><td>Tamanho da tabela utilizada para table lookup </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>sample_rate</em>&nbsp;</td><td>Taxa de amostragem </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>amplitude</em>&nbsp;</td><td>A amplitude </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>inter_type</em>&nbsp;</td><td>O tipo de interpolação. </td></tr>
+  </table>
+</dl>
+<dl class="see" compact><dt><b>Veja também:</b></dt><dd><a class="el" href="../../d4/d81/group__oscil.html#gaa0d4d6ffe47c5359235a5f1779305e0">interpolation_t</a> </dd></dl>
+<dl class="return" compact><dt><b>Retorna:</b></dt><dd>Um ponteiro para um novo oscilador </dd></dl>
+
+<p>Definição na linha <a class="el" href="../../d3/dc7/oscil_8c-source.html#l00042">42</a> do arquivo <a class="el" href="../../d3/dc7/oscil_8c-source.html">oscil.c</a>.</p>
+
+<p>
+<div class="dynheader">
+Este é o diagrama de chamadas para esta função:</div>
+<div class="dynsection">
+<p><center><img src="../../d4/d81/group__oscil_g6e5347dda289d2e53594720d0a65f63b_icgraph.png" border="0" usemap="#d4/d81/group__oscil_g6e5347dda289d2e53594720d0a65f63b_icgraph_map" alt=""></center>
+<map name="d4/d81/group__oscil_g6e5347dda289d2e53594720d0a65f63b_icgraph_map">
+<area shape="rect" href="../../df/d2d/main__linux_8c.html#0ddf1224851353fc92bfbff6f499fa97" title="main" alt="" coords="137,6,185,30"></map>
+</div>
+
+</div>
+</div><p>
+</div>
+<hr size="1"><address style="text-align: right;"><small>Gerado em Mon Sep 22 15:22:35 2008 para Trabalho 1 de Introdução à Computação Sônica - Oscilador Digital por&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="../../doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.5 </small></address>
+</body>
+</html>

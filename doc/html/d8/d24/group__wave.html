@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>Trabalho 1 de Introdução à Computação Sônica - Oscilador Digital: Wave</title>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css">
+<link href="../../tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Gerado por Doxygen 1.5.5 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="../../main.html"><span>Página&nbsp;Principal</span></a></li>
+      <li><a href="../../modules.html"><span>Módulos</span></a></li>
+      <li><a href="../../annotated.html"><span>Estruturas&nbsp;de&nbsp;Dados</span></a></li>
+      <li><a href="../../files.html"><span>Arquivos</span></a></li>
+    <li>
+      <form action="../../search.php" method="get">
+        <table cellspacing="0" cellpadding="0" border="0">
+          <tr>
+            <td><label>&nbsp;Procurar&nbsp;por&nbsp;</label></td>
+            <td><input type="text" name="query" value="" size="20" accesskey="s"/></td>
+          </tr>
+        </table>
+      </form>
+    </li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>Wave</h1>Módulo de escrita para o arquivo wave.  
+<a href="#_details">Mais...</a><table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Arquivos</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">arquivo &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d75/wav_8c.html">wav.c</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Contém a funcionalidade para escrever arquivos wav. <br></td></tr>
+
+<p>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">arquivo &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2c/wav_8h.html">wav.h</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Cabeçalho para as funções de escrita de arquivo wav. <br></td></tr>
+
+<p>
+<tr><td colspan="2"><br><h2>Estruturas de Dados</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d8f/structwav__header__t.html">wav_header_t</a></td></tr>
+
+<tr><td colspan="2"><br><h2>Definições de Tipos</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef struct <a class="el" href="../../d2/d8f/structwav__header__t.html">wav_header_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d24/group__wave.html#g290258af805b90470dd98d639f5eaee4">wav_header</a></td></tr>
+
+<tr><td colspan="2"><br><h2>Funções</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d24/group__wave.html#gb2c11663e71f4ea39689250d8a3257b9">write_wave</a> (char *file_name, int32_t sample_rate, int16_t *sample, int16_t sample_duration)</td></tr>
+
+</table>
+<hr><a name="_details"></a><h2>Descrição Detalhada</h2>
+Módulo de escrita para o arquivo wave. 
+<p>
+<hr><h2>Definições dos tipos</h2>
+<a class="anchor" name="g290258af805b90470dd98d639f5eaee4"></a><!-- doxytag: member="wav.h::wav_header" ref="g290258af805b90470dd98d639f5eaee4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="../../d2/d8f/structwav__header__t.html">wav_header_t</a> <a class="el" href="../../d2/d8f/structwav__header__t.html">wav_header</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Definição na linha <a class="el" href="../../df/db6/wav_8h-source.html#l00018">18</a> do arquivo <a class="el" href="../../df/db6/wav_8h-source.html">wav.h</a>.</p>
+
+</div>
+</div><p>
+<hr><h2>Funções</h2>
+<a class="anchor" name="gb2c11663e71f4ea39689250d8a3257b9"></a><!-- doxytag: member="wav.c::write_wave" ref="gb2c11663e71f4ea39689250d8a3257b9" args="(char *file_name, int32_t sample_rate, int16_t *sample, int16_t sample_duration)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void write_wave           </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>file_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&nbsp;</td>
+          <td class="paramname"> <em>sample_rate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int16_t *&nbsp;</td>
+          <td class="paramname"> <em>sample</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int16_t&nbsp;</td>
+          <td class="paramname"> <em>sample_duration</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Escreve no file_name as amostras com as características adequadas<p>
+<dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>file_name</em>&nbsp;</td><td>Nome do arquivo a ser criado </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>sample_rate</em>&nbsp;</td><td>Taxa de amostragem </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>sample</em>&nbsp;</td><td>O vetor com as amostras </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>sample_duration</em>&nbsp;</td><td>A duração das amostras em segundos </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Retorna:</b></dt><dd><code>void</code> </dd></dl>
+
+<p>Definição na linha <a class="el" href="../../d9/dd0/wav_8c-source.html#l00031">31</a> do arquivo <a class="el" href="../../d9/dd0/wav_8c-source.html">wav.c</a>.</p>
+
+<p>
+<div class="dynheader">
+Este é o diagrama de chamadas para esta função:</div>
+<div class="dynsection">
+<p><center><img src="../../d8/d24/group__wave_gb2c11663e71f4ea39689250d8a3257b9_icgraph.png" border="0" usemap="#d8/d24/group__wave_gb2c11663e71f4ea39689250d8a3257b9_icgraph_map" alt=""></center>
+<map name="d8/d24/group__wave_gb2c11663e71f4ea39689250d8a3257b9_icgraph_map">
+<area shape="rect" href="../../df/d2d/main__linux_8c.html#0ddf1224851353fc92bfbff6f499fa97" title="main" alt="" coords="140,6,188,30"></map>
+</div>
+
+</div>
+</div><p>
+</div>
+<hr size="1"><address style="text-align: right;"><small>Gerado em Mon Sep 22 15:22:35 2008 para Trabalho 1 de Introdução à Computação Sônica - Oscilador Digital por&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="../../doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.5 </small></address>
+</body>
+</html>

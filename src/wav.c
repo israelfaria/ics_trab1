@@ -1,12 +1,14 @@
-/*! @defgroup wave Wave */
-/** @{ */
+/*!@brief Módulo de escrita para o arquivo wave 
+ * @defgroup wave Wave 
+ * @{ 
+ */
 
 /** 
  * Contém a função write wave para escrever uma amostra como um 
  * arquivo wave
  *
  * 
- * @brief Módulo para escrita de arquivo wave.
+ * @brief Contém a funcionalidade para escrever arquivos wav.
  * @file wav.c
  * @author Bruno Figueira Lourenço
  * @author Israel Faria

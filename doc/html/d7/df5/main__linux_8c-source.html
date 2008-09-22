@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>Trabalho 1 de Introdução à Computação Sônica - Oscilador Digital: Código-Fonte de src/main_linux.c</title>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css">
+<link href="../../tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Gerado por Doxygen 1.5.5 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="../../main.html"><span>Página&nbsp;Principal</span></a></li>
+      <li><a href="../../modules.html"><span>Módulos</span></a></li>
+      <li><a href="../../annotated.html"><span>Estruturas&nbsp;de&nbsp;Dados</span></a></li>
+      <li class="current"><a href="../../files.html"><span>Arquivos</span></a></li>
+    <li>
+      <form action="../../search.php" method="get">
+        <table cellspacing="0" cellpadding="0" border="0">
+          <tr>
+            <td><label>&nbsp;Procurar&nbsp;por&nbsp;</label></td>
+            <td><input type="text" name="query" value="" size="20" accesskey="s"/></td>
+          </tr>
+        </table>
+      </form>
+    </li>
+    </ul>
+  </div>
+<h1>src/main_linux.c</h1><a href="../../df/d2d/main__linux_8c.html">Vá para a documentação deste arquivo.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &lt;stdio.h&gt;</span>
+<a name="l00002"></a>00002 <span class="preprocessor">#include &lt;stdlib.h&gt;</span>
+<a name="l00003"></a>00003 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;string.h&gt;</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;stdbool.h&gt;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;sys/stat.h&gt;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;errno.h&gt;</span>
+<a name="l00008"></a>00008 <span class="preprocessor">#include &lt;argp.h&gt;</span>
+<a name="l00009"></a>00009 
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="preprocessor">#include "<a class="code" href="../../d0/d2c/wav_8h.html" title="Cabeçalho para as funções de escrita de arquivo wav.">wav.h</a>"</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include "<a class="code" href="../../d0/d3e/oscil_8h.html" title="Oscilador digital com table lookup - Header.">oscil.h</a>"</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="comment">/*Versão do programa*/</span>
+<a name="l00015"></a><a class="code" href="../../df/d2d/main__linux_8c.html#62f73ea01c816f1996aed4c66f57c4fb">00015</a> <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code" href="../../df/d2d/main__linux_8c.html#62f73ea01c816f1996aed4c66f57c4fb">argp_program_version</a> = <span class="stringliteral">"Trabalho 1 de ICS - Versão 0.1"</span>;
+<a name="l00016"></a>00016 <span class="comment">/*A quem reclamar se o programa der defeito...*/</span>
+<a name="l00017"></a><a class="code" href="../../df/d2d/main__linux_8c.html#aa037e59f26a80a8a2e35e6f2364004d">00017</a> <span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code" href="../../df/d2d/main__linux_8c.html#aa037e59f26a80a8a2e35e6f2364004d">argp_program_bug_address</a> = <span class="stringliteral">"&lt;brunofigueiralourenco@gmail.com&gt;"</span>;
+<a name="l00018"></a>00018 <span class="comment">/*Pequena descrição do programa*/</span>
+<a name="l00019"></a>00019 <span class="keyword">static</span> <span class="keywordtype">char</span> doc[] =<span class="stringliteral">"Trabalho 1 de Introdução à Computação Sônica --"</span>
+<a name="l00020"></a>00020                                         <span class="stringliteral">" Oscilador Digital"</span>;
+<a name="l00021"></a>00021                                         
+<a name="l00022"></a>00022 <span class="comment">/*</span>
+<a name="l00023"></a>00023 <span class="comment"> * Os argumentos obrigatórios que o programa recebe. No nosso caso, </span>
+<a name="l00024"></a>00024 <span class="comment"> * são 3</span>
+<a name="l00025"></a>00025 <span class="comment"> */</span>
+<a name="l00026"></a>00026 <span class="keyword">static</span> <span class="keywordtype">char</span> args_doc[] = <span class="stringliteral">" [FREQUÊNCIA] [AMPLITUDE] [DURAÇÃO]"</span>;
+<a name="l00027"></a>00027 
+<a name="l00029"></a><a class="code" href="../../d6/d2e/structarguments.html">00029</a> <span class="keyword">struct </span><a class="code" href="../../d6/d2e/structarguments.html" title="Argumentos que o programa recebe.">arguments</a>{
+<a name="l00030"></a><a class="code" href="../../d6/d2e/structarguments.html#4a5d7a309c00b6a7bf12bad51de199ba">00030</a>         <span class="keywordtype">char</span> *<a class="code" href="../../d6/d2e/structarguments.html#4a5d7a309c00b6a7bf12bad51de199ba">args</a>[3];                
+<a name="l00031"></a><a class="code" href="../../d6/d2e/structarguments.html#b967f3c192207878cfe15464aeafb551">00031</a>     <span class="keywordtype">char</span> *<a class="code" href="../../d6/d2e/structarguments.html#b967f3c192207878cfe15464aeafb551">output_file</a>;
+<a name="l00032"></a><a class="code" href="../../d6/d2e/structarguments.html#be1327ae8b0de0115414a72855b38469">00032</a>     <a class="code" href="../../d4/d81/group__oscil.html#gaa0d4d6ffe47c5359235a5f1779305e0">interpolation_t</a> <a class="code" href="../../d6/d2e/structarguments.html#be1327ae8b0de0115414a72855b38469">inter_type</a>;
+<a name="l00033"></a><a class="code" href="../../d6/d2e/structarguments.html#3d78bec0c10ff7a5fcada87c00aa98c9">00033</a>     int32_t <a class="code" href="../../d6/d2e/structarguments.html#3d78bec0c10ff7a5fcada87c00aa98c9">sample_rate</a>;
+<a name="l00034"></a><a class="code" href="../../d6/d2e/structarguments.html#373fdc6213533cae195778e2126543dc">00034</a>     int32_t <a class="code" href="../../d6/d2e/structarguments.html#373fdc6213533cae195778e2126543dc">table_length</a>;
+<a name="l00035"></a>00035 };
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 <span class="keyword">static</span> <span class="keyword">struct </span>argp_option options[] = {
+<a name="l00038"></a>00038     {<span class="stringliteral">"output"</span>,                    <span class="charliteral">'o'</span>,<span class="stringliteral">"FILE"</span>, 0, <span class="stringliteral">"Coloca a saída no arquivo FILE"</span> },
+<a name="l00039"></a>00039         {<span class="stringliteral">"inter"</span>,<span class="charliteral">'i'</span>,<span class="stringliteral">"Código "</span>         , 0, <span class="stringliteral">"0 - Sem interpolação\n1 - Linear\n2 - Cúbica"</span>},
+<a name="l00040"></a>00040         {<span class="stringliteral">"sample_rate"</span>,<span class="charliteral">'s'</span>,<span class="stringliteral">"sr"</span>         , 0, <span class="stringliteral">"Taxa de amostragem"</span>},
+<a name="l00041"></a>00041         {<span class="stringliteral">"table_length"</span>,<span class="charliteral">'t'</span>,<span class="stringliteral">"length"</span>, 0,<span class="stringliteral">"Tamanho da tabela de lookup"</span>},
+<a name="l00042"></a>00042         {0}
+<a name="l00043"></a>00043 };
+<a name="l00044"></a>00044 
+<a name="l00049"></a>00049 <span class="keyword">static</span> error_t parse_opt (<span class="keywordtype">int</span> key, <span class="keywordtype">char</span> *arg, <span class="keyword">struct</span> argp_state *state){
+<a name="l00050"></a>00050         <span class="keyword">struct </span><a class="code" href="../../d6/d2e/structarguments.html" title="Argumentos que o programa recebe.">arguments</a> * <a class="code" href="../../d6/d2e/structarguments.html" title="Argumentos que o programa recebe.">arguments</a> = state-&gt;input;
+<a name="l00051"></a>00051         
+<a name="l00052"></a>00052         <span class="keywordflow">switch</span> (key){
+<a name="l00053"></a>00053                 <span class="keywordflow">case</span> <span class="charliteral">'o'</span>:
+<a name="l00054"></a>00054                         arguments-&gt;<a class="code" href="../../d6/d2e/structarguments.html#b967f3c192207878cfe15464aeafb551">output_file</a> = arg;   
+<a name="l00055"></a>00055                         <span class="keywordflow">break</span>;
+<a name="l00056"></a>00056                 <span class="keywordflow">case</span> <span class="charliteral">'i'</span>:{
+<a name="l00057"></a>00057                         <span class="keywordtype">char</span> *tail = <span class="stringliteral">""</span>;
+<a name="l00058"></a>00058                         <a class="code" href="../../d4/d81/group__oscil.html#gaa0d4d6ffe47c5359235a5f1779305e0">interpolation_t</a> <a class="code" href="../../d6/d2e/structarguments.html#be1327ae8b0de0115414a72855b38469">inter_type</a>;
+<a name="l00059"></a>00059                         inter_type = strtol (arg, &amp;tail, 0);
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061                         <span class="comment">/*</span>
+<a name="l00062"></a>00062 <span class="comment">                         * Checa se a conversão foi bem-sucedida, isto é o usuário </span>
+<a name="l00063"></a>00063 <span class="comment">                         * realmente informou um número. Além disso, checa se </span>
+<a name="l00064"></a>00064 <span class="comment">                         * o código informado está na faixa de valores válida</span>
+<a name="l00065"></a>00065 <span class="comment">                         */</span>
+<a name="l00066"></a>00066                         <span class="keywordflow">if</span> ( strcmp(tail,<span class="stringliteral">""</span>) != 0 || (inter_type &gt; 2 || inter_type &lt; 0 )){
+<a name="l00067"></a>00067                                 argp_error(state,<span class="stringliteral">"Tipo de interpolação inválida!\n"</span>);        
+<a name="l00068"></a>00068                         }
+<a name="l00069"></a>00069                         
+<a name="l00070"></a>00070                         arguments-&gt;<a class="code" href="../../d6/d2e/structarguments.html#be1327ae8b0de0115414a72855b38469">inter_type</a> = atoi(arg);
+<a name="l00071"></a>00071                         <span class="keywordflow">break</span>;
+<a name="l00072"></a>00072                 }
+<a name="l00073"></a>00073                 <span class="keywordflow">case</span> <span class="charliteral">'s'</span>:{
+<a name="l00074"></a>00074                         <span class="keywordtype">char</span> *tail = <span class="stringliteral">""</span>;
+<a name="l00075"></a>00075                         arguments-&gt;<a class="code" href="../../d6/d2e/structarguments.html#3d78bec0c10ff7a5fcada87c00aa98c9">sample_rate</a> = strtol(arg,&amp;tail,0);
+<a name="l00076"></a>00076                         <span class="comment">/*</span>
+<a name="l00077"></a>00077 <span class="comment">                         * Checa se a conversão foi bem-sucedida, isto é o usuário </span>
+<a name="l00078"></a>00078 <span class="comment">                         * realmente informou um número. Além disso, checa se </span>
+<a name="l00079"></a>00079 <span class="comment">                         * a taxa de amostragem é maior que 0</span>
+<a name="l00080"></a>00080 <span class="comment">                         */</span>
+<a name="l00081"></a>00081                         <span class="keywordflow">if</span> ( strcmp(tail,<span class="stringliteral">""</span>) != 0 || arguments-&gt;<a class="code" href="../../d6/d2e/structarguments.html#3d78bec0c10ff7a5fcada87c00aa98c9">sample_rate</a> &lt; 0){
+<a name="l00082"></a>00082                                 argp_error(state,<span class="stringliteral">"Sample Rate negativo ou inválido!\n"</span>);       
+<a name="l00083"></a>00083                         }
+<a name="l00084"></a>00084                         <span class="keywordflow">break</span>;  
+<a name="l00085"></a>00085                 }       
+<a name="l00086"></a>00086                 <span class="keywordflow">case</span> <span class="charliteral">'t'</span>:{
+<a name="l00087"></a>00087                         <span class="keywordtype">char</span> *tail;
+<a name="l00088"></a>00088                         arguments-&gt;<a class="code" href="../../d6/d2e/structarguments.html#373fdc6213533cae195778e2126543dc">table_length</a> = strtol(arg,&amp;tail,0);
+<a name="l00089"></a>00089                         <span class="comment">/*</span>
+<a name="l00090"></a>00090 <span class="comment">                         * Checa se a conversão foi bem-sucedida, isto é o usuário </span>
+<a name="l00091"></a>00091 <span class="comment">                         * realmente informou um número. Além disso, checa se </span>
+<a name="l00092"></a>00092 <span class="comment">                         * a taxa de amostragem é maior que 0</span>
+<a name="l00093"></a>00093 <span class="comment">                         */</span>
+<a name="l00094"></a>00094                         <span class="keywordflow">if</span> ( strcmp(tail,<span class="stringliteral">""</span>) != 0 || arguments-&gt;<a class="code" href="../../d6/d2e/structarguments.html#373fdc6213533cae195778e2126543dc">table_length</a> &lt; 0){
+<a name="l00095"></a>00095                                 argp_error(state,<span class="stringliteral">"Tamanho da tabela negativo ou inválido!\n"</span>); 
+<a name="l00096"></a>00096                         }
+<a name="l00097"></a>00097                         <span class="keywordflow">break</span>;          
+<a name="l00098"></a>00098                 }
+<a name="l00099"></a>00099                 <span class="keywordflow">case</span> ARGP_KEY_ARG:
+<a name="l00100"></a>00100                         <span class="comment">/*Muitos argumentos!*/</span>
+<a name="l00101"></a>00101                         <span class="keywordflow">if</span> (state-&gt;arg_num &gt;= 3){
+<a name="l00102"></a>00102                 argp_usage (state);
+<a name="l00103"></a>00103                         }
+<a name="l00104"></a>00104                         arguments-&gt;<a class="code" href="../../d6/d2e/structarguments.html#4a5d7a309c00b6a7bf12bad51de199ba">args</a>[state-&gt;arg_num] = arg;
+<a name="l00105"></a>00105                         <span class="keywordflow">break</span>;
+<a name="l00106"></a>00106                 <span class="keywordflow">case</span> ARGP_KEY_END:
+<a name="l00107"></a>00107            <span class="comment">/*Poucos argumentos!*/</span>
+<a name="l00108"></a>00108             <span class="keywordflow">if</span> (state-&gt;arg_num &lt; 3){
+<a name="l00109"></a>00109                         argp_state_help(state,stdout,ARGP_HELP_STD_HELP);
+<a name="l00110"></a>00110                         }       
+<a name="l00111"></a>00111                 <span class="keywordflow">break</span>;
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113                 <span class="keywordflow">default</span>:
+<a name="l00114"></a>00114                 <span class="keywordflow">return</span> ARGP_ERR_UNKNOWN;
+<a name="l00115"></a>00115         }
+<a name="l00116"></a>00116         
+<a name="l00117"></a>00117         <span class="keywordflow">return</span> 0;
+<a name="l00118"></a>00118 }
+<a name="l00119"></a>00119 
+<a name="l00124"></a>00124 <span class="keyword">static</span> <span class="keyword">struct </span>argp argp = { options, parse_opt, args_doc, doc };
+<a name="l00125"></a>00125 
+<a name="l00126"></a><a class="code" href="../../df/d2d/main__linux_8c.html#0ddf1224851353fc92bfbff6f499fa97">00126</a> <span class="keywordtype">int</span> <a class="code" href="../../df/d2d/main__linux_8c.html#0ddf1224851353fc92bfbff6f499fa97">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]){
+<a name="l00127"></a>00127         <a class="code" href="../../d1/d15/structoscil__t.html" title="Oscilador digital com table lookup.">oscil</a> * osc;
+<a name="l00128"></a>00128         int16_t * samples;
+<a name="l00129"></a>00129         int32_t freq;
+<a name="l00130"></a>00130         int32_t sec;
+<a name="l00131"></a>00131         int32_t amp;
+<a name="l00132"></a>00132         <span class="keywordtype">char</span> * tail = <span class="stringliteral">""</span>;
+<a name="l00133"></a>00133         
+<a name="l00134"></a>00134         <span class="keyword">struct </span>arguments arguments;
+<a name="l00135"></a>00135         <span class="comment">/*Seta os valores padrões dos argumentos*/</span>
+<a name="l00136"></a>00136         arguments.<a class="code" href="../../d6/d2e/structarguments.html#b967f3c192207878cfe15464aeafb551">output_file</a> = <span class="stringliteral">"teste.wav"</span>;
+<a name="l00137"></a>00137         arguments.<a class="code" href="../../d6/d2e/structarguments.html#be1327ae8b0de0115414a72855b38469">inter_type</a> = <a class="code" href="../../d4/d81/group__oscil.html#ggaa0d4d6ffe47c5359235a5f1779305e0dc101ebf31c49c2d4b80b7c6f59f22cb">LINEAR</a>;
+<a name="l00138"></a>00138         arguments.<a class="code" href="../../d6/d2e/structarguments.html#3d78bec0c10ff7a5fcada87c00aa98c9">sample_rate</a> = 44100;
+<a name="l00139"></a>00139         arguments.<a class="code" href="../../d6/d2e/structarguments.html#373fdc6213533cae195778e2126543dc">table_length</a> = 1024;
+<a name="l00140"></a>00140         
+<a name="l00141"></a>00141         argp_parse(&amp;argp,argc,argv,0,0,&amp;arguments);
+<a name="l00142"></a>00142         
+<a name="l00143"></a>00143            
+<a name="l00144"></a>00144     <span class="comment">/*Checa se a frequência, amplitude e duração são válidos*/</span>           
+<a name="l00145"></a>00145         freq = strtol(arguments.<a class="code" href="../../d6/d2e/structarguments.html#4a5d7a309c00b6a7bf12bad51de199ba">args</a>[0],&amp;tail,0);
+<a name="l00146"></a>00146         <span class="keywordflow">if</span> (strcmp(tail,<span class="stringliteral">""</span>) != 0 || freq &lt; 0){
+<a name="l00147"></a>00147                 printf(<span class="stringliteral">"Frequência negativa ou inválida!\n"</span>); 
+<a name="l00148"></a>00148         }        
+<a name="l00149"></a>00149         amp = strtol(arguments.<a class="code" href="../../d6/d2e/structarguments.html#4a5d7a309c00b6a7bf12bad51de199ba">args</a>[1],&amp;tail,0);
+<a name="l00150"></a>00150         <span class="keywordflow">if</span> (strcmp(tail,<span class="stringliteral">""</span>) != 0 || amp &lt; 0){
+<a name="l00151"></a>00151                 printf(<span class="stringliteral">"Amplitude negativa ou inválida!\n"</span>);   
+<a name="l00152"></a>00152         }  
+<a name="l00153"></a>00153         sec = strtol(arguments.<a class="code" href="../../d6/d2e/structarguments.html#4a5d7a309c00b6a7bf12bad51de199ba">args</a>[2],&amp;tail,0);
+<a name="l00154"></a>00154         <span class="keywordflow">if</span> (strcmp(tail,<span class="stringliteral">""</span>) != 0 || sec &lt; 0){
+<a name="l00155"></a>00155                 printf(<span class="stringliteral">"Tempo de duração negativo ou inválido!\n"</span>);  
+<a name="l00156"></a>00156         }  
+<a name="l00157"></a>00157                 
+<a name="l00158"></a>00158         <span class="comment">/*Cria o oscilador*/</span>
+<a name="l00159"></a>00159         osc = <a class="code" href="../../d4/d81/group__oscil.html#g6e5347dda289d2e53594720d0a65f63b">start_oscil</a>(arguments.<a class="code" href="../../d6/d2e/structarguments.html#373fdc6213533cae195778e2126543dc">table_length</a>,arguments.<a class="code" href="../../d6/d2e/structarguments.html#3d78bec0c10ff7a5fcada87c00aa98c9">sample_rate</a>,amp,arguments.<a class="code" href="../../d6/d2e/structarguments.html#be1327ae8b0de0115414a72855b38469">inter_type</a>);
+<a name="l00160"></a>00160         <span class="comment">/*Gera as amostras*/</span>
+<a name="l00161"></a>00161         samples = <a class="code" href="../../d4/d81/group__oscil.html#gcdbc28ef22fba03cb5fe9b1bcc5f2c0a">generate_sample</a>(osc,freq,sec);
+<a name="l00162"></a>00162         <span class="comment">/*Manda escrever no arquivo*/</span>
+<a name="l00163"></a>00163         <a class="code" href="../../d8/d24/group__wave.html#gb2c11663e71f4ea39689250d8a3257b9">write_wave</a>(arguments.<a class="code" href="../../d6/d2e/structarguments.html#b967f3c192207878cfe15464aeafb551">output_file</a>,arguments.<a class="code" href="../../d6/d2e/structarguments.html#3d78bec0c10ff7a5fcada87c00aa98c9">sample_rate</a>,samples,sec);
+<a name="l00164"></a>00164 
+<a name="l00165"></a>00165         <span class="comment">/*Limpa a bagunça*/</span>
+<a name="l00166"></a>00166         <a class="code" href="../../d4/d81/group__oscil.html#gc44488bf645d15523f5ca17b262f7f94">free_oscillator</a>(&amp;osc);
+<a name="l00167"></a>00167         free(samples);
+<a name="l00168"></a>00168 
+<a name="l00169"></a>00169         <span class="keywordflow">return</span> 0;       
+<a name="l00170"></a>00170 }
+<a name="l00171"></a>00171 
+</pre></div></div>
+<hr size="1"><address style="text-align: right;"><small>Gerado em Mon Sep 22 15:22:35 2008 para Trabalho 1 de Introdução à Computação Sônica - Oscilador Digital por&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="../../doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.5 </small></address>
+</body>
+</html>

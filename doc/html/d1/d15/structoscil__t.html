@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>Trabalho 1 de Introdução à Computação Sônica - Oscilador Digital: Referência da Estrutura oscil_t</title>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css">
+<link href="../../tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Gerado por Doxygen 1.5.5 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="../../main.html"><span>Página&nbsp;Principal</span></a></li>
+      <li><a href="../../modules.html"><span>Módulos</span></a></li>
+      <li class="current"><a href="../../annotated.html"><span>Estruturas&nbsp;de&nbsp;Dados</span></a></li>
+      <li><a href="../../files.html"><span>Arquivos</span></a></li>
+    <li>
+      <form action="../../search.php" method="get">
+        <table cellspacing="0" cellpadding="0" border="0">
+          <tr>
+            <td><label>&nbsp;Procurar&nbsp;por&nbsp;</label></td>
+            <td><input type="text" name="query" value="" size="20" accesskey="s"/></td>
+          </tr>
+        </table>
+      </form>
+    </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="../../annotated.html"><span>Estruturas&nbsp;de&nbsp;Dados</span></a></li>
+      <li><a href="../../functions.html"><span>Campos&nbsp;de&nbsp;Dados</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>Referência da Estrutura oscil_t<br>
+<small>
+[<a class="el" href="../../d4/d81/group__oscil.html">Oscilador</a>]</small>
+</h1><!-- doxytag: class="oscil_t" -->Oscilador digital com table lookup.  
+<a href="#_details">Mais...</a>
+<p>
+<code>#include &lt;<a class="el" href="../../d9/d06/oscil_8h-source.html">oscil.h</a>&gt;</code>
+<p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Campos de Dados</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d15/structoscil__t.html#b08d3be5cbecd613e0460304ff43c7f9">table_length</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d15/structoscil__t.html#ecbb84bdb6b263cad0239a508d49a6f5">sample_rate</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">uint32_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d15/structoscil__t.html#954e9f9b098b93a3f3786e28c6e39d23">frequency</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int16_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d15/structoscil__t.html#c379a474846643e8721704788e09f241">amplitude</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">double *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d15/structoscil__t.html#0966a9ee53f7218f8abcbf9539ca9b51">wavetable</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="../../d4/d81/group__oscil.html#gaa0d4d6ffe47c5359235a5f1779305e0">interpolation_t</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d15/structoscil__t.html#f1004d456e64d9c9ae4c427ff99f4e9b">inter_type</a></td></tr>
+
+</table>
+<hr><a name="_details"></a><h2>Descrição Detalhada</h2>
+Oscilador digital com table lookup. 
+<p>
+<dl class="see" compact><dt><b>Veja também:</b></dt><dd><a class="el" href="../../d4/d81/group__oscil.html#g6e5347dda289d2e53594720d0a65f63b">start_oscil</a> <p>
+<a class="el" href="../../d4/d81/group__oscil.html#gcdbc28ef22fba03cb5fe9b1bcc5f2c0a">generate_sample</a> <p>
+<a class="el" href="../../d4/d81/group__oscil.html#gc44488bf645d15523f5ca17b262f7f94">free_oscillator</a> </dd></dl>
+
+<p>Definição na linha <a class="el" href="../../d9/d06/oscil_8h-source.html#l00038">38</a> do arquivo <a class="el" href="../../d9/d06/oscil_8h-source.html">oscil.h</a>.</p>
+<hr><h2>Campos e Atributos</h2>
+<a class="anchor" name="b08d3be5cbecd613e0460304ff43c7f9"></a><!-- doxytag: member="oscil_t::table_length" ref="b08d3be5cbecd613e0460304ff43c7f9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t <a class="el" href="../../d1/d15/structoscil__t.html#b08d3be5cbecd613e0460304ff43c7f9">oscil_t::table_length</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Definição na linha <a class="el" href="../../d9/d06/oscil_8h-source.html#l00039">39</a> do arquivo <a class="el" href="../../d9/d06/oscil_8h-source.html">oscil.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="ecbb84bdb6b263cad0239a508d49a6f5"></a><!-- doxytag: member="oscil_t::sample_rate" ref="ecbb84bdb6b263cad0239a508d49a6f5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t <a class="el" href="../../d1/d15/structoscil__t.html#ecbb84bdb6b263cad0239a508d49a6f5">oscil_t::sample_rate</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Definição na linha <a class="el" href="../../d9/d06/oscil_8h-source.html#l00040">40</a> do arquivo <a class="el" href="../../d9/d06/oscil_8h-source.html">oscil.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="954e9f9b098b93a3f3786e28c6e39d23"></a><!-- doxytag: member="oscil_t::frequency" ref="954e9f9b098b93a3f3786e28c6e39d23" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t <a class="el" href="../../d1/d15/structoscil__t.html#954e9f9b098b93a3f3786e28c6e39d23">oscil_t::frequency</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Definição na linha <a class="el" href="../../d9/d06/oscil_8h-source.html#l00041">41</a> do arquivo <a class="el" href="../../d9/d06/oscil_8h-source.html">oscil.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="c379a474846643e8721704788e09f241"></a><!-- doxytag: member="oscil_t::amplitude" ref="c379a474846643e8721704788e09f241" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int16_t <a class="el" href="../../d1/d15/structoscil__t.html#c379a474846643e8721704788e09f241">oscil_t::amplitude</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Definição na linha <a class="el" href="../../d9/d06/oscil_8h-source.html#l00042">42</a> do arquivo <a class="el" href="../../d9/d06/oscil_8h-source.html">oscil.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="0966a9ee53f7218f8abcbf9539ca9b51"></a><!-- doxytag: member="oscil_t::wavetable" ref="0966a9ee53f7218f8abcbf9539ca9b51" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double* <a class="el" href="../../d1/d15/structoscil__t.html#0966a9ee53f7218f8abcbf9539ca9b51">oscil_t::wavetable</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Definição na linha <a class="el" href="../../d9/d06/oscil_8h-source.html#l00043">43</a> do arquivo <a class="el" href="../../d9/d06/oscil_8h-source.html">oscil.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="f1004d456e64d9c9ae4c427ff99f4e9b"></a><!-- doxytag: member="oscil_t::inter_type" ref="f1004d456e64d9c9ae4c427ff99f4e9b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d4/d81/group__oscil.html#gaa0d4d6ffe47c5359235a5f1779305e0">interpolation_t</a> <a class="el" href="../../d1/d15/structoscil__t.html#f1004d456e64d9c9ae4c427ff99f4e9b">oscil_t::inter_type</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+<p>Definição na linha <a class="el" href="../../d9/d06/oscil_8h-source.html#l00044">44</a> do arquivo <a class="el" href="../../d9/d06/oscil_8h-source.html">oscil.h</a>.</p>
+
+</div>
+</div><p>
+<hr>A documentação para esta estrutura foi gerada a partir do seguinte arquivo:<ul>
+<li>src/<a class="el" href="../../d9/d06/oscil_8h-source.html">oscil.h</a></ul>
+</div>
+<hr size="1"><address style="text-align: right;"><small>Gerado em Mon Sep 22 15:22:35 2008 para Trabalho 1 de Introdução à Computação Sônica - Oscilador Digital por&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="../../doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.5 </small></address>
+</body>
+</html>

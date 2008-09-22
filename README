@@ -24,6 +24,12 @@ como instruções de como rodá-lo.
 
 src -> Fontes do programa
 
+testes -> Contém 3 arquivos com a mesma amplitude, 
+frequência e duração, porém com tipos de interpolação 
+diferentes. O tamanho da tabela é pequeno(20) e é possível 
+notar a diferença de qualidade entre o arquivo 
+A440.wav e os outros dois.
+
 *************************************************
 *				Compilação 						*
 *************************************************

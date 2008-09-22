@@ -1,8 +1,10 @@
-/*! @defgroup oscil Oscilador */
-/** @{ */
+/*!@brief Oscilador Oscilador digital com table lookup
+ * @defgroup oscil Oscilador 
+ * @{
+ */
 
 /** 
- * @brief Oscilador digital com table lookup.
+ * @brief Oscilador digital com table lookup - Implementação.
  * @file oscil.c
  * @author Bruno Figueira Lourenço
  * @author Israel Faria
@@ -124,7 +126,7 @@ static int16_t cubic_interpolation(oscil * oscillator, double phase){
 	double y,y0,y1,y2,y3;
 	double frac;
 	
-	x1= (int32_t) phase;
+	x1 = (int32_t) phase;
 	x0 = x1 - 1;
 	x2 = x1 + 1;
 	x3 = x1 + 2;

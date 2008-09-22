@@ -12,7 +12,7 @@
 #include "oscil.h"
 
 /*Versão do programa*/
-const char * argp_program_version = "Trabalho 2 de ICS - Versão 0.1";
+const char * argp_program_version = "Trabalho 1 de ICS - Versão 0.1";
 /*A quem reclamar se o programa der defeito...*/
 const char * argp_program_bug_address = "<brunofigueiralourenco@gmail.com>";
 /*Pequena descrição do programa*/
@@ -23,7 +23,7 @@ static char doc[] ="Trabalho 1 de Introdução à Computação Sônica --"
  * Os argumentos obrigatórios que o programa recebe. No nosso caso, 
  * são 3
  */
-static char args_doc[] = " [FREQUÊNCIA] [AMPLITUDE] [DURAÇÂO]";
+static char args_doc[] = " [FREQUÊNCIA] [AMPLITUDE] [DURAÇÃO]";
 
 /*!@brief Argumentos que o programa recebe*/
 struct arguments{
@@ -140,19 +140,7 @@ int main(int argc, char *argv[]){
 	
 	argp_parse(&argp,argc,argv,0,0,&arguments);
 	
-	/*
-	printf ("ARG1 = %s\nARG2 = %s\nARG3 = %s\n"
-          		"Output File = %s\nInter Type: %d\n"
-          		"Sample Rate = %d\n"
-          		"Table Length = %d\n",
-               arguments.args[0], arguments.args[1],
-               arguments.args[2],
-               arguments.output_file,
-               arguments.inter_type,
-               arguments.sample_rate,
-               arguments.table_length);
-    */
-    
+	   
     /*Checa se a frequência, amplitude e duração são válidos*/           
 	freq = strtol(arguments.args[0],&tail,0);
 	if (strcmp(tail,"") != 0 || freq < 0){

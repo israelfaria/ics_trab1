@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>Trabalho 1 de Introdução à Computação Sônica - Oscilador Digital: Código-Fonte de src/wav.h</title>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css">
+<link href="../../tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Gerado por Doxygen 1.5.5 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="../../main.html"><span>Página&nbsp;Principal</span></a></li>
+      <li><a href="../../modules.html"><span>Módulos</span></a></li>
+      <li><a href="../../annotated.html"><span>Estruturas&nbsp;de&nbsp;Dados</span></a></li>
+      <li class="current"><a href="../../files.html"><span>Arquivos</span></a></li>
+    <li>
+      <form action="../../search.php" method="get">
+        <table cellspacing="0" cellpadding="0" border="0">
+          <tr>
+            <td><label>&nbsp;Procurar&nbsp;por&nbsp;</label></td>
+            <td><input type="text" name="query" value="" size="20" accesskey="s"/></td>
+          </tr>
+        </table>
+      </form>
+    </li>
+    </ul>
+  </div>
+<h1>src/wav.h</h1><a href="../../d0/d2c/wav_8h.html">Vá para a documentação deste arquivo.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00014"></a>00014 <span class="preprocessor">#ifndef __WAV_H</span>
+<a name="l00015"></a>00015 <span class="preprocessor"></span><span class="preprocessor">#define __WAV_H</span>
+<a name="l00016"></a>00016 <span class="preprocessor"></span><span class="preprocessor">        #include &lt;stdint.h&gt;</span>
+<a name="l00017"></a>00017         
+<a name="l00018"></a><a class="code" href="../../d8/d24/group__wave.html#g290258af805b90470dd98d639f5eaee4">00018</a>         <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="../../d2/d8f/structwav__header__t.html">wav_header_t</a> <a class="code" href="../../d2/d8f/structwav__header__t.html">wav_header</a>;
+<a name="l00019"></a>00019         
+<a name="l00023"></a><a class="code" href="../../d2/d8f/structwav__header__t.html">00023</a>         <span class="keyword">struct </span><a class="code" href="../../d2/d8f/structwav__header__t.html">wav_header_t</a>{
+<a name="l00024"></a><a class="code" href="../../d2/d8f/structwav__header__t.html#81da63065d9f241ff647818d79bdb8fd">00024</a>                 int32_t <a class="code" href="../../d2/d8f/structwav__header__t.html#81da63065d9f241ff647818d79bdb8fd">chunkID</a>;
+<a name="l00025"></a><a class="code" href="../../d2/d8f/structwav__header__t.html#bb0590932daa844353e701ce47bc4f84">00025</a>                 int32_t <a class="code" href="../../d2/d8f/structwav__header__t.html#bb0590932daa844353e701ce47bc4f84">chunk_size</a>;
+<a name="l00026"></a><a class="code" href="../../d2/d8f/structwav__header__t.html#7657bd67a836354e749493adbad9d8e6">00026</a>                 int32_t <a class="code" href="../../d2/d8f/structwav__header__t.html#7657bd67a836354e749493adbad9d8e6">format</a>;
+<a name="l00027"></a><a class="code" href="../../d2/d8f/structwav__header__t.html#317393e2bb525c4e8c528b7cc389c577">00027</a>                 int32_t <a class="code" href="../../d2/d8f/structwav__header__t.html#317393e2bb525c4e8c528b7cc389c577">subchunk1ID</a>;
+<a name="l00028"></a><a class="code" href="../../d2/d8f/structwav__header__t.html#8f600a5e380961ad421a4123f36821e7">00028</a>                 int32_t <a class="code" href="../../d2/d8f/structwav__header__t.html#8f600a5e380961ad421a4123f36821e7">subchunk1size</a>;
+<a name="l00029"></a><a class="code" href="../../d2/d8f/structwav__header__t.html#b73c8a1f9b29911722310ab53d96672f">00029</a>                 int16_t <a class="code" href="../../d2/d8f/structwav__header__t.html#b73c8a1f9b29911722310ab53d96672f">audio_format</a>;
+<a name="l00030"></a><a class="code" href="../../d2/d8f/structwav__header__t.html#5f9c59d8aa2dccdbdc72341941bfdfca">00030</a>                 int16_t <a class="code" href="../../d2/d8f/structwav__header__t.html#5f9c59d8aa2dccdbdc72341941bfdfca">num_channels</a>;
+<a name="l00031"></a><a class="code" href="../../d2/d8f/structwav__header__t.html#8665d8750103d7bc8df8526f9c7d583e">00031</a>                 int32_t <a class="code" href="../../d2/d8f/structwav__header__t.html#8665d8750103d7bc8df8526f9c7d583e">sample_rate</a>;
+<a name="l00032"></a><a class="code" href="../../d2/d8f/structwav__header__t.html#4e15c6bd22144398f0d284004604cd58">00032</a>                 int32_t <a class="code" href="../../d2/d8f/structwav__header__t.html#4e15c6bd22144398f0d284004604cd58">byte_rate</a>;
+<a name="l00033"></a><a class="code" href="../../d2/d8f/structwav__header__t.html#ca02bd72a8e97d3c9eddaa8e29da9d35">00033</a>                 int16_t <a class="code" href="../../d2/d8f/structwav__header__t.html#ca02bd72a8e97d3c9eddaa8e29da9d35">block_align</a>;
+<a name="l00034"></a><a class="code" href="../../d2/d8f/structwav__header__t.html#8615b042169251fc79f8a5775d46ecc3">00034</a>                 int16_t <a class="code" href="../../d2/d8f/structwav__header__t.html#8615b042169251fc79f8a5775d46ecc3">bits_per_sample</a>;
+<a name="l00035"></a><a class="code" href="../../d2/d8f/structwav__header__t.html#8f7539ed1990bc657b2e39b65f5f4270">00035</a>                 int32_t <a class="code" href="../../d2/d8f/structwav__header__t.html#8f7539ed1990bc657b2e39b65f5f4270">subchunk2ID</a>;
+<a name="l00036"></a><a class="code" href="../../d2/d8f/structwav__header__t.html#1f189aa6034801075540b348ec3f9f7e">00036</a>                 int32_t <a class="code" href="../../d2/d8f/structwav__header__t.html#1f189aa6034801075540b348ec3f9f7e">subchunk2size</a>;
+<a name="l00037"></a>00037         };
+<a name="l00038"></a>00038         
+<a name="l00039"></a>00039         <span class="keyword">extern</span>  <span class="keywordtype">void</span> <a class="code" href="../../d8/d24/group__wave.html#gb2c11663e71f4ea39689250d8a3257b9">write_wave</a>(<span class="keywordtype">char</span> * file_name,
+<a name="l00040"></a>00040                                 int32_t sample_rate,
+<a name="l00041"></a>00041                                 int16_t * sample,
+<a name="l00042"></a>00042                                 int16_t sample_duration);
+<a name="l00043"></a>00043 <span class="preprocessor">#endif</span>
+<a name="l00044"></a>00044 <span class="preprocessor"></span>
+</pre></div></div>
+<hr size="1"><address style="text-align: right;"><small>Gerado em Mon Sep 22 15:22:35 2008 para Trabalho 1 de Introdução à Computação Sônica - Oscilador Digital por&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="../../doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.5 </small></address>
+</body>
+</html>
